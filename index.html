@@ -1,0 +1,38 @@
+<!-- web-component.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Component</title>
+</head>
+<body>
+    <my-component>
+        <h1 slot="header">Web Component</h1>
+        <p slot="content">This is a web component.</p>
+        <p slot="footer">&copy; 2023 My Website</p>
+    </my-component>
+    <script src="my-component.js"></script>
+</body>
+</html>
+
+/* my-component.js */
+class MyComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.innerHTML = `
+            <div class="header">
+                <slot name="header"></slot>
+            </div>
+            <div class="content">
+                <slot name="content"></slot>
+            </div>
+            <div class="footer">
+                <slot name="footer"></slot>
+            </div>
+        `;
+    }
+}
+
+customElements.define('my-component', MyComponent);
